@@ -3,7 +3,8 @@ import {
   createBook,
   getAllBooks,
   editBook,
-  deleteBook
+  deleteBook,
+  searchBooks
 } from "../controllers/book.controller"
 import { authenticate } from "../middleware/auth"
 import { requireRole } from "../middleware/role"
@@ -41,7 +42,7 @@ router.delete(
 //search
 router.get(
     "/search",
-    getAllBooks
+    searchBooks
 )
 
 
