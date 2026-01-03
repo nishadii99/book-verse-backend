@@ -102,7 +102,7 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
       });
     }
 
-    if (status === "SHIPPED") {
+    if (status === "SHIPPED" || status === "DELIVERED" || status === "PAID") {
       const order = await Order.findById(orderId);
       if (!order) {
         return res.status(404).json({ success: false, message: "Order not found" });
@@ -122,14 +122,14 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
         }
       }
     }
-    else if (status === "PAID") {
-      console.log("Processing payment for order:", orderId);
-      const order = await Order.findById(orderId);
-      if (!order) {
-        return res.status(404).json({ success: false, message: "Order not found" });
-      }
-      await order.save();
-    }
+    // else if (status === "PAID") {
+    //   console.log("Processing payment for order:", orderId);
+    //   const order = await Order.findById(orderId);
+    //   if (!order) {
+    //     return res.status(404).json({ success: false, message: "Order not found" });
+    //   }
+    //   await order.save();
+    // }
     const updatedOrder = await Order.findByIdAndUpdate(
       orderId,
       { status },
