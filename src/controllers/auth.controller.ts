@@ -140,10 +140,10 @@ const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET as string;
 
 export const refreshToken = async (req: Request, res: Response) => {
   try {
-    const { token } = req.body;
-    if (!token) return res.status(400).json({ message: "Refresh token required" });
+    const { refreshToken } = req.body;
+    if (!refreshToken) return res.status(400).json({ message: "Refresh token required" });
 
-    const payload: any = jwt.verify(token, JWT_REFRESH_SECRET);
+    const payload: any = jwt.verify(refreshToken, JWT_REFRESH_SECRET);
 
     const user = await User.findById(payload.sub) as IUser | null;
     if (!user) return res.status(403).json({ message: "Invalid refresh token" });
